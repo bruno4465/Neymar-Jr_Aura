@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="noite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEYMAR JR — O Menino da Vila</title>
+<meta name="description" content="Série Vila — a história de Neymar Jr contada como um uniforme de alta-costura. Projeto conceitual de design.">
+<meta name="theme-color" content="#09090C">
+<meta property="og:title" content="NEYMAR JR — O Menino da Vila">
+<meta property="og:description" content="Cinco capítulos, uma camisa 10. Série Vila.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2309090C'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-style='italic' fill='%23C6A15B' font-size='28' text-anchor='middle'%3ENJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<!-- ══════════ PRELOADER ══════════ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="pre-mark">NJ<span>10</span></div>
+  <div class="pre-line"><i id="preBar"></i></div>
+  <div class="pre-meta mono"><span>NEYMAR DA SILVA SANTOS JÚNIOR</span><span id="prePct">000</span></div>
+</div>
+
+<!-- cursor customizado / progresso / fx -->
+<div class="cursor" id="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ══════════ NAVEGAÇÃO ══════════ -->
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#inicio" data-hover data-magnetic>NJ<span class="dot10">10</span></a>
+  <nav class="nav-links mono" aria-label="navegação principal">
+    <a href="#manifesto" data-hover data-sec="manifesto">Manifesto</a>
+    <a href="#numeros" data-hover data-sec="numeros">Números</a>
+    <a href="#trajetoria" data-hover data-sec="trajetoria">Trajetória</a>
+    <a href="#honras" data-hover data-sec="honras">Honras</a>
+    <a href="#sistema" data-hover data-sec="sistema">Sistema</a>
+    <a href="#posters" data-hover data-sec="posters">Pôsteres</a>
+  </nav>
+  <div class="nav-right">
+    <span class="nav-pill mono">SANTOS — 2025</span>
+    <button id="themeToggle" class="nav-icon" data-hover data-magnetic aria-label="Alternar tema claro/escuro" aria-pressed="false">
+      <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <button id="menuBtn" class="nav-icon burger" data-hover aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- menu mobile -->
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu-links" aria-label="menu">
+    <a href="#manifesto"><i class="mono">01</i>Manifesto</a>
+    <a href="#numeros"><i class="mono">02</i>Números</a>
+    <a href="#trajetoria"><i class="mono">03</i>Trajetória</a>
+    <a href="#honras"><i class="mono">04</i>Honras</a>
+    <a href="#sistema"><i class="mono">05</i>Sistema</a>
+    <a href="#posters"><i class="mono">06</i>Pôsteres</a>
+  </nav>
+  <div class="menu-foot mono"><span>NEYMAR JR — SÉRIE VILA</span><span>MOGI → VILA → MUNDO</span></div>
+</div>
+
+<main id="top">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-ten" id="heroTen">10</div>
+      <div class="glow" id="heroGlow"></div>
+    </div>
+
+    <div class="hero-inner container">
+      <div class="hero-kicker mono" data-reveal>
+        <span>MOGI DAS CRUZES, SP — 05.02.1992</span>
+        <span>ATACANTE · CAMISA 10 · DESTRO</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="l1"><span class="t" data-reveal data-delay="80">NEY</span></span>
+        <span class="l2"><span class="t" data-reveal data-delay="180">MAR</span><em class="jr" data-reveal data-delay="320">júnior</em></span>
+      </h1>
+
+      <div class="stamp" data-reveal data-delay="420" aria-hidden="true">
+        <svg viewBox="0 0 160 160">
+          <defs><path id="circ" d="M80 12a68 68 0 1 1-.01 0"/></defs>
+          <text class="st-txt"><textPath href="#circ">OUSADIA · ALEGRIA · NJ 10 · VILA BELMIRO · EST. 2009 ·</textPath></text>
+          <text x="80" y="90" class="st-core">NJ</text>
+        </svg>
+      </div>
+
+      <p class="hero-sub" data-reveal data-delay="480">Duas décadas de dribles, gols impossíveis e polêmicas na medida exata. A história do Menino da Vila, costurada como um uniforme de alta-costura.</p>
+
+      <div class="hero-foot mono" data-reveal data-delay="560">
+        <span class="hf-hint">ROLE PARA EXPLORAR ↓ <i>(clique no dez)</i></span>
+        <span class="hf-meta">EST. 2009 — VILA BELMIRO</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TICKER ══════════ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="m-group">
+        <span class="m-item">NEYMAR JR</span><i class="m-dot"></i>
+        <span class="m-item it">ousadia</span><i class="m-dot"></i>
+        <span class="m-item">Nº 10</span><i class="m-dot"></i>
+        <span class="m-item it">alegria</span><i class="m-dot"></i>
+        <span class="m-item">VILA BELMIRO</span><i class="m-dot"></i>
+        <span class="m-item">MOGI DAS CRUZES</span><i class="m-dot"></i>
+        <span class="m-item it">artilheiro da seleção</span><i class="m-dot"></i>
+      </div>
+      <div class="m-group">
+        <span class="m-item">NEYMAR JR</span><i class="m-dot"></i>
+        <span class="m-item it">ousadia</span><i class="m-dot"></i>
+        <span class="m-item">Nº 10</span><i class="m-dot"></i>
+        <span class="m-item it">alegria</span><i class="m-dot"></i>
+        <span class="m-item">VILA BELMIRO</span><i class="m-dot"></i>
+        <span class="m-item">MOGI DAS CRUZES</span><i class="m-dot"></i>
+        <span class="m-item it">artilheiro da seleção</span><i class="m-dot"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ 01 MANIFESTO ══════════ -->
+  <section class="section" id="manifesto">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="sec-label mono">01 — MANIFESTO</span>
+        <i class="sec-rule"></i>
+        <span class="sec-note mono">A ARTE DE JOGAR CRIANÇA<br>DIANTE DE 80 MIL PESSOAS</span>
+      </div>
+      <p class="manifesto split-words">Há jogadores que <em>ganham jogos</em>, outros que ganham títulos. E há os que fazem o estádio inteiro prender a respiração cada vez que a bola chega. Neymar joga como quem <em>brinca</em> — e cobra caro por isso. O futebol, coitado, nunca mais foi o mesmo.</p>
+      <div class="manifesto-meta mono" data-reveal>
+        <span>FICHA Nº 001</span><span>ORIGEM: VILA BELMIRO</span><span>POSIÇÃO: PONTA DE LANÇA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 NÚMEROS ══════════ -->
+  <section class="section section--tight" id="numeros">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="sec-label mono">02 — NÚMEROS</span>
+        <i class="sec-rule"></i>
+        <h2 class="sec-title">A conta<br>não mente.</h2>
+      </div>
+
+      <div class="counters">
+        <div class="count" data-reveal>
+          <span class="n"><b data-counter data-target="79">0</b></span>
+          <span class="l mono">GOLS PELA SELEÇÃO</span>
+          <span class="s mono">MAIOR ARTILHEIRO DA HISTÓRIA</span>
+        </div>
+        <div class="count" data-reveal data-delay="90">
+          <span class="n"><b data-counter data-target="440" data-suffix="+">0</b></span>
+          <span class="l mono">GOLS OFICIAIS NA CARREIRA</span>
+          <span class="s mono">CLUBES E SELEÇÃO</span>
+        </div>
+        <div class="count" data-reveal data-delay="180">
+          <span class="n"><b data-counter data-target="222" data-prefix="€" data-suffix="M">0</b></span>
+          <span class="l mono">A TRANSFERÊNCIA RECORDE</span>
+          <span class="s mono">PARIS, AGOSTO DE 2017</span>
+        </div>
+        <div class="count" data-reveal data-delay="270">
+          <span class="n"><b data-counter data-target="30" data-suffix="+">0</b></span>
+          <span class="l mono">TÍTULOS OFICIAIS</span>
+          <span class="s mono">DE MOGI A RIADE</span>
+        </div>
+      </div>
+
+      <div class="bars" data-reveal>
+        <div class="bars-head mono"><span>GOLS POR CAPÍTULO — COMPETIÇÕES OFICIAIS</span><span>* SANTOS 2025 EM ANDAMENTO</span></div>
+        <div class="bar-row"><span class="bar-club mono">SANTOS 09–13</span><span class="bar-track"><i class="bar-fill" style="--w:100%;--c:var(--bar-santos)"></i></span><span class="bar-val mono">138</span></div>
+        <div class="bar-row"><span class="bar-club mono">PSG 17–23</span><span class="bar-track"><i class="bar-fill" style="--w:85.5%;--c:var(--paris)"></i></span><span class="bar-val mono">118</span></div>
+        <div class="bar-row"><span class="bar-club mono">BARCELONA 13–17</span><span class="bar-track"><i class="bar-fill" style="--w:76%;--c:var(--garnet)"></i></span><span class="bar-val mono">105</span></div>
+        <div class="bar-row"><span class="bar-club mono">SELEÇÃO 10—</span><span class="bar-track"><i class="bar-fill" style="--w:57.2%;--c:var(--gold)"></i></span><span class="bar-val mono">79</span></div>
+        <div class="bar-row"><span class="bar-club mono">AL-HILAL 23–25</span><span class="bar-track"><i class="bar-fill" style="--w:.8%;--c:var(--riyadh)"></i></span><span class="bar-val mono">1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 TRAJETÓRIA ══════════ -->
+  <section class="section" id="trajetoria">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="sec-label mono">03 — TRAJETÓRIA</span>
+        <i class="sec-rule"></i>
+        <h2 class="sec-title">Cinco capítulos,<br>uma camisa.</h2>
+      </div>
+
+      <div class="clubs" data-reveal>
+        <div class="club-list" role="tablist" aria-label="capítulos da carreira">
+          <button class="club-btn is-active" role="tab" aria-selected="true" data-club="santos1" data-hover>
+            <span class="cb-years mono">2009—13</span><span class="cb-name">Santos</span><span class="cb-meta mono">BRA · I</span>
+          </button>
+          <button class="club-btn" role="tab" aria-selected="false" data-club="barca" data-hover>
+            <span class="cb-years mono">2013—17</span><span class="cb-name">Barcelona</span><span class="cb-meta mono">ESP</span>
+          </button>
+          <button class="club-btn" role="tab" aria-selected="false" data-club="psg" data-hover>
+            <span class="cb-years mono">2017—23</span><span class="cb-name">Paris SG</span><span class="cb-meta mono">FRA</span>
+          </button>
+          <button class="club-btn" role="tab" aria-selected="false" data-club="hilal" data-hover>
+            <span class="cb-years mono">2023—25</span><span class="cb-name">Al-Hilal</span><span class="cb-meta mono">SAU</span>
+          </button>
+          <button class="club-btn" role="tab" aria-selected="false" data-club="santos2" data-hover>
+            <span class="cb-years mono">2025 —</span><span class="cb-name">Santos</span><span class="cb-meta mono">BRA · II</span>
+          </button>
+        </div>
+
+        <div class="club-panel" id="clubPanel" data-club-color>
+          <div class="cp-inner" id="cpInner">
+            <span class="cp-tag mono" id="cpTag">A ORIGEM</span>
+            <div class="cp-years" id="cpYears">2009—2013</div>
+            <h3 class="cp-name" id="cpName">Santos FC</h3>
+            <p class="cp-blurb" id="cpBlurb">Aos 17 anos, um garoto de Mogi devolveu o Santos ao topo da América. Libertadores de 2011, dribles em série e um bilhete só de ida para a Europa.</p>
+            <div class="cp-stats" id="cpStats">
+              <div class="cp-stat"><b id="cpGames">230</b><span class="mono">JOGOS</span></div>
+              <div class="cp-stat"><b id="cpGoals">138</b><span class="mono">GOLS</span></div>
+              <div class="cp-stat"><b id="cpAvg">0,60</b><span class="mono">MÉDIA</span></div>
+            </div>
+            <div class="cp-tags" id="cpTags">
+              <span class="chip mono">LIBERTADORES 2011</span>
+              <span class="chip mono">COPA DO BRASIL 2010</span>
+              <span class="chip mono">PAULISTA ×3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 HONRAS ══════════ -->
+  <section class="section section--striped" id="honras">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="sec-label mono">04 — HONRAS</span>
+        <i class="sec-rule"></i>
+        <h2 class="sec-title">Sala de<br>troféus.</h2>
+      </div>
+
+      <div class="honours" data-reveal>
+        <div class="h-card h-card--rec" data-hover>
+          <span class="h-year mono">79 GOLS</span>
+          <span class="h-name">Maior artilheiro<br>da Seleção</span>
+          <span class="h-where mono">BRASIL — 2010 → </span>
+        </div>
+        <div class="h-card" data-hover><span class="h-year mono">2011</span><span class="h-name">Copa Libertadores</span><span class="h-where mono">SANTOS FC</span></div>
+        <div class="h-card" data-hover><span class="h-year mono">2013</span><span class="h-name">Copa das Confederações</span><span class="h-where mono">SELEÇÃO</span></div>
+        <div class="h-card" data-hover><span class="h-year mono">2015</span><span class="h-name">Champions League</span><span class="h-where mono">FC BARCELONA</span></div>
+        <div class="h-card" data-hover><span class="h-year mono">2015</span><span class="h-name">Mundial de Clubes</span><span class="h-where mono">FC BARCELONA</span></div>
+        <div class="h-card" data-hover><span class="h-year mono">2016</span><span class="h-name">Ouro Olímpico</span><span class="h-where mono">RIO 2016 — MARACANÃ</span></div>
+        <div class="h-card" data-hover><span class="h-year mono">×2</span><span class="h-name">La Liga</span><span class="h-where mono">BARCELONA 14–16</span></div>
+        <div class="h-card" data-hover><span class="h-year mono">×5</span><span class="h-name">Ligue 1</span><span class="h-where mono">PARIS SG 18–23</span></div>
+        <div class="h-card" data-hover><span class="h-year mono">×3</span><span class="h-name">Campeonato Paulista</span><span class="h-where mono">SANTOS 10–12</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 SISTEMA ══════════ -->
+  <section class="section" id="sistema">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="sec-label mono">05 — SISTEMA</span>
+        <i class="sec-rule"></i>
+        <h2 class="sec-title">Um armário<br>campeão.</h2>
+      </div>
+      <p class="sistema-intro" data-reveal>Poucas peças, corte impecável. A paleta vem da Vila, a tipografia vem da arquibancada — <em>clique em uma cor para copiar</em>.</p>
+
+      <div class="swatch-grid" data-reveal>
+        <button class="swatch" style="--sw:#09090C;--tx:#EFEAE0" data-copy="#09090C" data-hover><span class="sw-c"></span><span class="sw-name mono">ALVINEGRO</span><span class="sw-hex mono">#09090C</span></button>
+        <button class="swatch" style="--sw:#EFEAE0;--tx:#101014" data-copy="#EFEAE0" data-hover><span class="sw-c"></span><span class="sw-name mono">MARFIM VILA</span><span class="sw-hex mono">#EFEAE0</span></button>
+        <button class="swatch" style="--sw:#C6A15B;--tx:#101014" data-copy="#C6A15B" data-hover><span class="sw-c"></span><span class="sw-name mono">OURO DEZ</span><span class="sw-hex mono">#C6A15B</span></button>
+        <button class="swatch" style="--sw:#E7CE9A;--tx:#101014" data-copy="#E7CE9A" data-hover><span class="sw-c"></span><span class="sw-name mono">OURO CLARO</span><span class="sw-hex mono">#E7CE9A</span></button>
+        <button class="swatch" style="--sw:#2F6B58;--tx:#EFEAE0" data-copy="#2F6B58" data-hover><span class="sw-c"></span><span class="sw-name mono">JADE CAMPO</span><span class="sw-hex mono">#2F6B58</span></button>
+        <button class="swatch" style="--sw:#A50044;--tx:#EFEAE0" data-copy="#A50044" data-hover><span class="sw-c"></span><span class="sw-name mono">GARNET CATALÃ</span><span class="sw-hex mono">#A50044</span></button>
+        <button class="swatch" style="--sw:#004170;--tx:#EFEAE0" data-copy="#004170" data-hover><span class="sw-c"></span><span class="sw-name mono">AZUL PARIS</span><span class="sw-hex mono">#004170</span></button>
+      </div>
+
+      <div class="type-rows" data-reveal>
+        <div class="type-row">
+          <span class="tr-label mono">DISPLAY</span>
+          <span class="t-spec" style="font-family:var(--font-d);font-style:italic;font-weight:560">Ousadia</span>
+          <span class="tr-info mono">FRAUNCES — OPZS 144<br>MANCHETES & NÚMEROS</span>
+        </div>
+        <div class="type-row">
+          <span class="tr-label mono">TEXTO</span>
+          <span class="t-spec" style="font-family:var(--font-s);font-weight:500">Vila Belmiro nº10</span>
+          <span class="tr-info mono">SPACE GROTESK<br>INTERFACE & CORPO</span>
+        </div>
+        <div class="type-row">
+          <span class="tr-label mono">DADOS</span>
+          <span class="t-spec" style="font-family:var(--font-m)">05.02.1992 — 79'</span>
+          <span class="tr-info mono">IBM PLEX MONO<br>ETIQUETAS & PLACARES</span>
+        </div>
+        <div class="type-row type-row--slider">
+          <span class="tr-label mono">ESCALA</span>
+          <div class="slider-wrap">
+            <input type="range" id="specSize" min="32" max="140" value="72" data-hover aria-label="tamanho da amostra tipográfica">
+            <span class="t-spec" id="specTarget" style="font-family:var(--font-d);font-style:italic">Alegria</span>
+          </div>
+          <span class="tr-info mono">ARRASTE PARA<br>MEDIR O CORTE</span>
+        </div>
+      </div>
+
+      <div class="components" data-reveal>
+        <span class="cp-label mono">COMPONENTES</span>
+        <div class="comp-row">
+          <a class="btn btn--primary mono" href="#trajetoria" data-hover data-magnetic>VER TRAJETÓRIA</a>
+          <button class="btn btn--ghost mono" id="copyTokens" data-hover data-magnetic>COPIAR TOKENS</button>
+          <span class="chip mono">Nº 10</span>
+          <span class="chip mono">CAMISA SAGRADA</span>
+          <span class="chip mono">MOGI → VILA</span>
+          <span class="badge mono">EST. 2009</span>
+        </div>
+        <div class="specs mono">
+          <span>12 COLUNAS</span><span>GUTTER 24</span><span>BASE 8</span><span>RAIO 999</span><span>HAIRLINE 1PX @ 14%</span><span>OURO SOBRE PRETO, SEMPRE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 06 PÔSTERES ══════════ -->
+  <section class="section" id="posters">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="sec-label mono">06 — PÔSTERES</span>
+        <i class="sec-rule"></i>
+        <h2 class="sec-title">Série Vila.</h2>
+        <span class="sec-note mono">QUATRO IMPRESSÕES<br>DE UMA CARREIRA</span>
+      </div>
+
+      <div class="posters">
+        <article class="poster" data-tilt data-reveal>
+          <div class="p-inner p-ousadia">
+            <span class="p-tag mono">Nº 01/04 — SANTOS, 2011</span>
+            <span class="p-word">Ousadia</span>
+            <span class="p-cap mono">O DIBLE QUE VIROU SOBRENOME</span>
+          </div>
+        </article>
+        <article class="poster" data-tilt data-reveal data-delay="90">
+          <div class="p-inner p-alegria">
+            <span class="p-tag mono">Nº 02/04 — RIO, 2016</span>
+            <span class="p-word">Alegria</span>
+            <span class="p-cap mono">O PÊNALTI DO OURO OLÍMPICO</span>
+          </div>
+        </article>
+        <article class="poster" data-tilt data-reveal data-delay="180">
+          <div class="p-inner p-dez">
+            <span class="p-tag mono">Nº 03/04 — A CAMISA</span>
+            <span class="p-word">10</span>
+            <span class="p-cap mono">A MAIS PESADA DO PAÍS</span>
+          </div>
+        </article>
+        <article class="poster" data-tilt data-reveal data-delay="270">
+          <div class="p-inner p-pass">
+            <span class="p-tag mono">Nº 04/04 — CARTÃO DE EMBARQUE</span>
+            <div class="pass-rows mono">
+              <span>MOGI DAS CRUZES → VILA BELMIRO <i>2009</i></span>
+              <span>VILA BELMIRO → BARCELONA <i>2013</i></span>
+              <span>BARCELONA → PARIS <i>2017</i></span>
+              <span>PARIS → RIade <i>2023</i></span>
+              <span class="pass-ret">RIADE → VILA BELMIRO <i>2025</i></span>
+            </div>
+            <svg class="barcode" viewBox="0 0 220 40" aria-hidden="true"><g fill="currentColor"><rect x="0" width="3" height="40"/><rect x="7" width="1.5" height="40"/><rect x="12" width="5" height="40"/><rect x="21" width="2" height="40"/><rect x="27" width="1.5" height="40"/><rect x="32" width="6" height="40"/><rect x="42" width="2" height="40"/><rect x="48" width="1.5" height="40"/><rect x="53" width="4" height="40"/><rect x="61" width="2.5" height="40"/><rect x="68" width="1.5" height="40"/><rect x="73" width="5" height="40"/><rect x="82" width="2" height="40"/><rect x="88" width="3" height="40"/><rect x="95" width="1.5" height="40"/><rect x="100" width="6" height="40"/><rect x="110" width="2" height="40"/><rect x="116" width="1.5" height="40"/><rect x="121" width="4" height="40"/><rect x="129" width="2.5" height="40"/><rect x="136" width="1.5" height="40"/><rect x="141" width="5" height="40"/><rect x="150" width="2" height="40"/><rect x="156" width="3" height="40"/><rect x="163" width="1.5" height="40"/><rect x="168" width="6" height="40"/><rect x="178" width="2" height="40"/><rect x="184" width="1.5" height="40"/><rect x="189" width="4" height="40"/><rect x="197" width="2.5" height="40"/><rect x="204" width="1.5" height="40"/><rect x="209" width="5" height="40"/><rect x="218" width="2" height="40"/></g></svg>
+            <span class="pass-stamp mono">RETORNO CONFIRMADO</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CITAÇÃO ══════════ -->
+  <section class="quote section">
+    <div class="container">
+      <p class="quote-line split-words" data-reveal>O futebol sério perde todo dia para o futebol <em>feliz</em>.</p>
+      <span class="quote-att mono" data-reveal>— BILHETE DE ARQUIBANCADA · VILA BELMIRO</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════ RODAPÉ ══════════ -->
+<footer class="footer" id="fim">
+  <div class="foot-marquee" aria-hidden="true">
+    <div class="fm-track">
+      <span>OUSADIA &amp; ALEGRIA — </span><span>OUSADIA &amp; ALEGRIA — </span>
+    </div>
+  </div>
+
+  <div class="container foot-grid">
+    <div class="foot-col foot-brand">
+      <span class="foot-nj" id="footNj" data-hover>NJ</span>
+      <p>Prova de que futebol também é arte de rua — com etiqueta de alta-costura.</p>
+    </div>
+    <div class="foot-col">
+      <span class="foot-h mono">ÍNDICE</span>
+      <a href="#manifesto" data-hover>Manifesto</a>
+      <a href="#numeros" data-hover>Números</a>
+      <a href="#trajetoria" data-hover>Trajetória</a>
+      <a href="#honras" data-hover>Honras</a>
+    </div>
+    <div class="foot-col">
+      <span class="foot-h mono">FORA DA VILA</span>
+      <a href="https://www.instagram.com/neymarjr" target="_blank" rel="noopener" data-hover>Instagram ↗</a>
+      <a href="https://x.com/neymarjr" target="_blank" rel="noopener" data-hover>X ↗</a>
+      <a href="https://www.youtube.com/@NRSports" target="_blank" rel="noopener" data-hover>NR Sports ↗</a>
+    </div>
+    <div class="foot-col">
+      <span class="foot-h mono">EM CAMPO</span>
+      <span class="foot-line">Santos FC</span>
+      <span class="foot-line">Camisa 10</span>
+      <span class="foot-line">Contrato até 2027</span>
+    </div>
+  </div>
+
+  <div class="foot-bar mono">
+    <span>© <b id="year">2025</b> — SÉRIE VILA</span>
+    <span>FEITO COM OUSADIA &amp; ALEGRIA</span>
+    <span>PROJETO CONCEITUAL — SEM AFILIAÇÃO</span>
+  </div>
+
+  <button class="to-top" id="toTop" data-hover data-magnetic aria-label="voltar ao topo">↑</button>
+</footer>
+
+<noscript><style>.preloader{display:none}[data-reveal]{opacity:1;transform:none}.split-words .w{opacity:1}</style></noscript>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
