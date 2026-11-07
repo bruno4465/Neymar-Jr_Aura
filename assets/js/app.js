@@ -271,30 +271,35 @@
     santos1: {
       tag: 'A ORIGEM', years: '2009—2013', name: 'Santos FC',
       games: 230, goals: 138, color: '#C6A15B',
+      img: 'assets/img/santos1-2011.jpg',
       blurb: 'Aos 17 anos, um garoto de Mogi devolveu o Santos ao topo da América. Libertadores de 2011, dribles em série e um bilhete só de ida para a Europa.',
       tags: ['LIBERTADORES 2011', 'COPA DO BRASIL 2010', 'PAULISTA ×3']
     },
     barca: {
       tag: 'A CONSAGRAÇÃO', years: '2013—2017', name: 'FC Barcelona',
       games: 186, goals: 105, color: '#A50044',
+      img: 'assets/img/barca.jpg',
       blurb: 'MSN: a tríade mais devastadora do futebol moderno. Ao lado de Messi e Suárez, o triplete de 2014-15 e a Champions que veio completar a prateleira.',
       tags: ['CHAMPIONS LEAGUE 2015', 'MUNDIAL 2015', 'LA LIGA ×2', 'COPA DEL REY ×3']
     },
     psg: {
       tag: 'A TRANSFERÊNCIA', years: '2017—2023', name: 'Paris Saint-Germain',
       games: 173, goals: 118, color: '#004170',
+      img: 'assets/img/psg-trio.jpg',
       blurb: '€222 milhões e Paris de joelhos. O recorde mundial de transferência, marcas históricas na Ligue 1 — e a lua-de-mel eternamente interrompida pela Champions.',
       tags: ['LIGUE 1 ×5', 'COPA DA FRANÇA ×3', 'RECORDE €222M']
     },
     hilal: {
       tag: 'O INTERREGNO', years: '2023—2025', name: 'Al-Hilal',
       games: 7, goals: 1, color: '#1E56C8',
+      img: 'assets/img/hilal.jpg',
       blurb: 'O capítulo árabe: poucos minutos, muitas lágrimas. O joelho cedeu antes da adaptação — a estrela, essa, nunca baixou o brilho.',
       tags: ['RIADE', 'SAUDI PRO LEAGUE']
     },
     santos2: {
       tag: 'O RETORNO', years: '2025 —', name: 'Santos FC',
       live: true, color: '#EFEAE0',
+      img: 'assets/img/santos2-juventude.jpg',
       blurb: 'A volta pra casa. Aos 33, o Menino da Vila reescreve o final na mesma arquibancada onde tudo começou — dessa vez, como lenda viva.',
       tags: ['VILA BELMIRO', 'CAPÍTULO ABERTO', 'CONTRATO ATÉ 2027']
     }
@@ -309,9 +314,14 @@
       b.classList.toggle('is-active', on);
       b.setAttribute('aria-selected', on);
     });
-    inner.classList.add('switching');
+      inner.classList.add('switching');
     setTimeout(() => {
       panel.style.setProperty('--club', c.color);
+      const ph = $('#cpPhoto');
+      if (ph) {
+        ph.src = c.img;
+        ph.alt = 'Neymar no capítulo ' + c.name;
+      }
       $('#cpTag').textContent = c.tag;
       $('#cpYears').textContent = c.years;
       $('#cpName').textContent = c.name;
@@ -378,6 +388,39 @@
   const slider = $('#specSize'), specT = $('#specTarget');
   if (slider && specT) {
     slider.addEventListener('input', () => { specT.style.fontSize = slider.value + 'px'; });
+  }
+
+  /* ── imagens: some com o recorte se o arquivo faltar ── */
+  function killBroken(img) {
+    const f = img.closest('figure, .cut');
+    if (f) f.style.display = 'none';
+    img.style.display = 'none';
+  }
+  $$('img').forEach(img => {
+    if (img.complete && img.naturalWidth === 0) { killBroken(img); return; }
+    img.addEventListener('error', () => killBroken(img));
+  });
+
+  /* ── galeria: arrastar para rolar ──────────── */
+  const strip = $('.strip');
+  if (strip) {
+    let down = false, startX = 0, startL = 0, moved = false;
+    strip.addEventListener('pointerdown', e => {
+      down = true; moved = false;
+      startX = e.clientX; startL = strip.scrollLeft;
+      strip.classList.add('dragging');
+    });
+    addEventListener('pointermove', e => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 6) moved = true;
+      strip.scrollLeft = startL - dx;
+    });
+    addEventListener('pointerup', () => {
+      down = false;
+      strip.classList.remove('dragging');
+    });
+    strip.addEventListener('click', e => { if (moved) e.preventDefault(); });
   }
 
   /* ── confetti dourado (clique no 10 / NJ) ──── */
