@@ -245,15 +245,17 @@ body.menu-open .menu-links a:nth-child(6){transition-delay:.40s}
 /* foto do hero — duotone dourado, cor se revela no hover */
 .hero-photo{
   position:absolute;z-index:1;pointer-events:auto;
-  right:clamp(16px,7vw,120px);top:50%;
-  width:clamp(240px,30vw,430px);
-  transform:translateY(-52%);
+  right:clamp(16px,8vw,150px);top:42%;
+  width:clamp(220px,25vw,370px);
+  transform:translateY(-50%);
 }
 .hero-photo img{
   width:100%;aspect-ratio:3/4;object-fit:cover;
   filter:grayscale(1) sepia(.5) hue-rotate(-10deg) saturate(1.7) contrast(1.04) brightness(.82);
-  -webkit-mask-image:radial-gradient(115% 115% at 50% 42%,#000 52%,transparent 76%);
-          mask-image:radial-gradient(115% 115% at 50% 42%,#000 52%,transparent 76%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 12%,#000 82%,transparent 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 12%,#000 82%,transparent 100%);
+          mask-composite:intersect;
   transition:filter .8s var(--ease),transform .8s var(--ease);
 }
 .hero-photo:hover img{
@@ -492,7 +494,7 @@ body.menu-open .menu-links a:nth-child(6){transition-delay:.40s}
   letter-spacing:.08em;font-size:clamp(18px,1.6vw,23px);
   margin-top:8px;color:var(--ink);
 }
-.cp-blurb{margin:22px 0 38px;max-width:54ch;color:var(--dim);font-size:15.5px}
+.cp-blurb{margin:22px 0 38px;max-width:min(54ch,66%);color:var(--dim);font-size:15.5px}
 .cp-stats{
   display:grid;grid-template-columns:repeat(3,1fr);
   border-top:1px solid var(--line);
