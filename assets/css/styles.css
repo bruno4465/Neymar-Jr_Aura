@@ -93,6 +93,22 @@ body::after{
 }
 [data-reveal].inview{opacity:1;transform:translateY(0)}
 
+/* ── smooth scroll (estilo lenis, só desktop) ── */
+body.smooth-on #smooth{
+  position:fixed;top:0;left:0;width:100%;
+  will-change:transform;
+  backface-visibility:hidden;
+}
+#scrollSpace{display:none}
+body.smooth-on #scrollSpace{display:block}
+
+/* ── títulos fatiados em linhas com máscara (estilo lando) ── */
+.sec-title .line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.sec-title .line-in{display:inline-block;transform:translateY(118%);transition:transform 1.05s var(--ease)}
+.sec-title.inview .line-in{transform:translateY(0)}
+.sec-title .line:nth-child(2) .line-in{transition-delay:.09s}
+.sec-title .line:nth-child(3) .line-in{transition-delay:.18s}
+
 /* ══════════ PRELOADER ══════════ */
 .preloader{
   position:fixed;inset:0;z-index:10005;
@@ -513,11 +529,13 @@ body.menu-open .menu-links a:nth-child(6){transition-delay:.40s}
 }
 .chip:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ══════════ 04 RECORTES — galeria ══════════ */
+/* ══════════ 04 RECORTES — pista horizontal (estilo lando) ══════════ */
+.recortes{padding-top:clamp(96px,13vh,176px)}
+.hscroll{position:relative}
 .strip{
-  display:flex;gap:18px;
-  overflow-x:auto;
+  display:flex;gap:18px;align-items:center;
   padding:8px clamp(20px,4vw,48px) 28px;
+  overflow-x:auto;
   scroll-snap-type:x proximity;
   cursor:grab;
   scrollbar-color:var(--gold-deep) var(--bg0);
@@ -526,17 +544,27 @@ body.menu-open .menu-links a:nth-child(6){transition-delay:.40s}
 .strip::-webkit-scrollbar-track{background:var(--bg0)}
 .strip::-webkit-scrollbar-thumb{background:var(--gold-deep);border-radius:8px}
 .strip.dragging{cursor:grabbing;scroll-snap-type:none}
+body.hscroll-on .hscroll{will-change:height}
+body.hscroll-on .hscroll .strip{
+  overflow:visible;scroll-snap-type:none;width:max-content;cursor:default;
+  will-change:transform;
+}
+body.hscroll-on .cut{scroll-snap-align:none}
 .cut{
   flex:0 0 auto;position:relative;overflow:hidden;
   height:clamp(250px,32vw,370px);
   border-radius:10px;border:1px solid var(--line);
   scroll-snap-align:center;
+  will-change:transform;
 }
 .cut img{
   height:100%;width:auto;object-fit:cover;display:block;
   filter:grayscale(1) contrast(1.05) brightness(.84) sepia(.25);
-  transition:filter .65s var(--ease),transform .65s var(--ease);
+  clip-path:inset(10% 7% 10% 7%);
+  transform:scale(1.12);
+  transition:filter .65s var(--ease),transform .65s var(--ease),clip-path 1s var(--ease);
 }
+.strip.inview .cut img{clip-path:inset(0 0 0 0);transform:scale(1)}
 .cut:hover img{filter:none;transform:scale(1.045)}
 .cut::after{
   content:attr(data-cap);
@@ -810,10 +838,15 @@ input[type="range"]::-moz-range-thumb{
   .pass-stamp{bottom:120px;right:16px}
 }
 
+/* marquees dirigidos pela velocidade do scroll (JS) */
+.js-drive .marquee-track,.js-drive .fm-track{animation:none;will-change:transform}
+
 /* ══════════ MOVIMENTO REDUZIDO ══════════ */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s !important;transition-duration:.001s !important}
   [data-reveal],.split-words .w,.quote-line .w{opacity:1 !important;transform:none !important}
+  .sec-title .line-in{transform:none !important}
+  .cut img{clip-path:none !important;transform:scale(1) !important}
   .cursor{display:none}
   .marquee-track,.fm-track,.stamp svg{animation:none !important}
   html{scroll-behavior:auto}

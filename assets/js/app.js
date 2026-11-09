@@ -28,6 +28,163 @@
     toastT = setTimeout(() => toastEl.classList.remove('show'), 1900);
   }
 
+  /* ═══════════════════════════════════════════════
+     MOTOR DE SCROLL — inspirado no landonorris.com
+     · smooth scroll com lerp (estilo Lenis)
+     · parallax [data-px] e skew por velocidade
+     · marquees acelerados pela velocidade do scroll
+     · galeria horizontal dirigida pelo scroll (sticky)
+     · títulos fatiados em linhas com máscara
+     ═══════════════════════════════════════════════ */
+  const smoothEl = $('#smooth'), spacer = $('#scrollSpace');
+  const marqTrack = $('.marquee-track'), fmTrack = $('.fm-track');
+  const hscroll = $('[data-hscroll]'), stripEl = $('.strip');
+  const heroInner = $('.hero-inner'), heroPhoto = $('.hero-photo');
+  const cuts = $$('.cut'), cpPhoto = $('.cp-photo');
+
+  let cur = window.scrollY, vel = 0, lastCur = cur;
+  let vh = window.innerHeight, vw = window.innerWidth;
+  let smoothOK = false, hscrollOK = false;
+  let marqX = 0, marqHalf = 0, fmX = 0, fmHalf = 0;
+  let pxItems = [], hsExtra = 0, hsBase = 0;
+
+  function docTop(el) {
+    return el.getBoundingClientRect().top + cur;
+  }
+
+  function measure() {
+    vh = window.innerHeight; vw = window.innerWidth;
+    if (smoothEl && spacer) spacer.style.height = smoothEl.scrollHeight + 'px';
+    if (marqTrack) marqHalf = marqTrack.scrollWidth / 2;
+    if (fmTrack) fmHalf = fmTrack.scrollWidth / 2;
+    pxItems.forEach(o => {
+      o.el.style.transform = 'none';
+      o.base = o.el.getBoundingClientRect().top + cur + o.el.offsetHeight / 2;
+      o.el.style.transform = '';
+    });
+    if (hscrollOK && hscroll && stripEl) {
+      stripEl.style.transform = 'none';
+      hsExtra = Math.max(0, stripEl.scrollWidth - vw);
+      hsBase = hscroll.getBoundingClientRect().top + cur;
+      hscroll.style.height = (hsExtra + vh) + 'px';
+    }
+  }
+
+  function applyModes() {
+    smoothOK = !RM && FINE && vw > 980;
+    hscrollOK = !RM && vw > 980;
+    body.classList.toggle('smooth-on', smoothOK);
+    body.classList.toggle('hscroll-on', hscrollOK);
+    if (marqTrack) body.classList.add('js-drive');
+  }
+
+  /* títulos .sec-title viram linhas mascaradas */
+  $$('.sec-title').forEach(t => {
+    const parts = t.innerHTML.split(/<br\s*\/?>/i);
+    t.innerHTML = parts.map(p => '<span class="line"><span class="line-in">' + p + '</span></span>').join('');
+  });
+
+  /* parallax: elementos marcados + hero */
+  function collectPx() {
+    pxItems = [];
+    $$('[data-px]').forEach(el => {
+      pxItems.push({ el: el, f: parseFloat(el.dataset.px) || 0.1, base: 0 });
+    });
+    if (heroTen) pxItems.push({ el: heroTen, f: 0.16, base: 0 });
+    if (heroGlow) pxItems.push({ el: heroGlow, f: 0.07, base: 0 });
+  }
+
+  function frame() {
+    const target = window.scrollY;
+
+    if (smoothOK && smoothEl) {
+      cur = lerp(cur, target, 0.095);
+      if (Math.abs(cur - target) < 0.1) cur = target;
+      smoothEl.style.transform = 'translate3d(0,' + (-cur).toFixed(2) + 'px,0)';
+    } else {
+      cur = target;
+    }
+
+    vel = cur - lastCur; lastCur = cur;
+    const vClamp = clamp(vel, -80, 80);
+
+    /* parallax */
+    for (let i = 0; i < pxItems.length; i++) {
+      const o = pxItems[i];
+      const screenPos = o.base - cur;
+      if (screenPos > -vh && screenPos < vh * 1.5) {
+        o.el.style.transform = 'translate3d(0,' + ((vh / 2 - screenPos) * o.f).toFixed(1) + 'px,0)';
+      }
+    }
+
+    /* saída do hero: conteúdo sobe e some, foto sai mais devagar */
+    if (heroInner && cur < vh * 1.2) {
+      const p = clamp(cur / (vh * 0.75), 0, 1);
+      heroInner.style.opacity = (1 - p).toFixed(3);
+      heroInner.style.transform = 'translate3d(0,' + (cur * 0.16).toFixed(1) + 'px,0)';
+      if (heroPhoto) heroPhoto.style.transform = 'translateY(-50%) translate3d(0,' + (-cur * 0.08).toFixed(1) + 'px,0)';
+    }
+
+    /* skew por velocidade (galeria + foto do capítulo) */
+    if (Math.abs(vClamp) > 0.5) {
+      const sk = ' skewY(' + (vClamp * 0.018).toFixed(2) + 'deg)';
+      for (let i = 0; i < cuts.length; i++) cuts[i].style.transform = 'skewY(' + (vClamp * 0.018).toFixed(2) + 'deg)';
+      if (cpPhoto) cpPhoto.style.transform = 'skewY(' + (vClamp * 0.01).toFixed(2) + 'deg)';
+    }
+
+    /* marquees: base + velocidade do scroll, direção acompanha */
+    if (!RM) {
+      if (marqTrack && marqHalf) {
+        marqX -= 0.55 + vClamp * 0.28;
+        if (marqX <= -marqHalf) marqX += marqHalf;
+        if (marqX > 0) marqX -= marqHalf;
+        marqTrack.style.transform = 'translate3d(' + marqX.toFixed(1) + 'px,0,0)';
+      }
+      if (fmTrack && fmHalf) {
+        fmX -= 0.9 + vClamp * 0.4;
+        if (fmX <= -fmHalf) fmX += fmHalf;
+        if (fmX > 0) fmX -= fmHalf;
+        fmTrack.style.transform = 'translate3d(' + fmX.toFixed(1) + 'px,0,0)';
+      }
+    }
+
+    /* galeria horizontal: progresso do scroll vira deslocamento lateral */
+    if (hscrollOK && hscroll && stripEl && hsExtra > 0) {
+      const prog = clamp((cur - hsBase) / hsExtra, 0, 1);
+      stripEl.style.transform = 'translate3d(' + (-prog * hsExtra).toFixed(1) + 'px,0,0)';
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  applyModes();
+  collectPx();
+  measure();
+  requestAnimationFrame(frame);
+
+  let rsT;
+  addEventListener('resize', () => {
+    clearTimeout(rsT);
+    rsT = setTimeout(() => { applyModes(); measure(); }, 150);
+  });
+  if (smoothEl && 'ResizeObserver' in window) {
+    new ResizeObserver(() => {
+      if (spacer) spacer.style.height = smoothEl.scrollHeight + 'px';
+    }).observe(smoothEl);
+  }
+
+  /* âncoras: pulo instantâneo do scroll nativo, o lerp desliza */
+  $$('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      window.scrollTo({ top: Math.max(0, docTop(t) - 76), behavior: smoothOK ? 'instant' : 'smooth' });
+    });
+  });
+
   /* ── tema noite / marfim ───────────────────── */
   const themeBtn = $('#themeToggle');
   function applyTheme(t) {
@@ -114,7 +271,7 @@
       });
     }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
 
-    $$('[data-reveal], .bars, .split-words, .quote-line').forEach(el => io.observe(el));
+    $$('[data-reveal], .bars, .split-words, .quote-line, .sec-title').forEach(el => io.observe(el));
 
     const ioCount = new IntersectionObserver(entries => {
       entries.forEach(en => {
@@ -152,7 +309,7 @@
     setTimeout(finishLoad, 5000); /* rede lenta? não trava */
   }
 
-  /* ── nav: fundo, esconder ao descer, progresso, parallax ── */
+  /* ── nav: fundo, esconder ao descer, progresso ── */
   const nav = $('#nav'), progressBar = $('#progressBar');
   const heroTen = $('#heroTen'), heroGlow = $('#heroGlow');
   let lastY = 0, ticking = false;
@@ -170,10 +327,6 @@
     lastY = y;
     const max = Math.max(1, html.scrollHeight - window.innerHeight);
     if (progressBar) progressBar.style.transform = 'scaleX(' + (y / max) + ')';
-    if (!RM && y < window.innerHeight * 1.4) {
-      if (heroTen)  heroTen.style.transform  = 'translate3d(0,' + (y * 0.16) + 'px,0)';
-      if (heroGlow) heroGlow.style.transform = 'translate3d(0,' + (y * 0.07) + 'px,0)';
-    }
   }
   addEventListener('scroll', () => {
     if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
