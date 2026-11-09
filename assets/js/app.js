@@ -41,6 +41,7 @@
   const hscroll = $('[data-hscroll]'), stripEl = $('.strip');
   const heroInner = $('.hero-inner'), heroPhoto = $('.hero-photo');
   const cuts = $$('.cut'), cpPhoto = $('.cp-photo');
+  const heroTen = $('#heroTen'), heroGlow = $('#heroGlow');
 
   let cur = window.scrollY, vel = 0, lastCur = cur;
   let vh = window.innerHeight, vw = window.innerWidth;
@@ -76,6 +77,8 @@
     body.classList.toggle('smooth-on', smoothOK);
     body.classList.toggle('hscroll-on', hscrollOK);
     if (marqTrack) body.classList.add('js-drive');
+    /* na pista horizontal o lazy-load nunca dispara — vira eager */
+    if (hscrollOK) $$('img[loading="lazy"]').forEach(i => { i.loading = 'eager'; });
   }
 
   /* títulos .sec-title viram linhas mascaradas */
@@ -160,13 +163,16 @@
   applyModes();
   collectPx();
   measure();
-  requestAnimationFrame(frame);
+  if (!RM) requestAnimationFrame(frame);
 
   let rsT;
   addEventListener('resize', () => {
     clearTimeout(rsT);
     rsT = setTimeout(() => { applyModes(); measure(); }, 150);
   });
+  /* imagens mudam as larguras — re-medir quando carregarem */
+  addEventListener('load', measure);
+  $$('img').forEach(i => i.addEventListener('load', measure, { once: true }));
   if (smoothEl && 'ResizeObserver' in window) {
     new ResizeObserver(() => {
       if (spacer) spacer.style.height = smoothEl.scrollHeight + 'px';
@@ -554,11 +560,12 @@
     img.addEventListener('error', () => killBroken(img));
   });
 
-  /* ── galeria: arrastar para rolar ──────────── */
+  /* ── galeria: arrastar para rolar (só no modo nativo) ── */
   const strip = $('.strip');
-  if (strip) {
+  if (strip && !hscrollOK) {
     let down = false, startX = 0, startL = 0, moved = false;
     strip.addEventListener('pointerdown', e => {
+      if (body.classList.contains('hscroll-on')) return;
       down = true; moved = false;
       startX = e.clientX; startL = strip.scrollLeft;
       strip.classList.add('dragging');
