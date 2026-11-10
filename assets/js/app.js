@@ -317,7 +317,6 @@
 
   /* ── nav: fundo, esconder ao descer, progresso ── */
   const nav = $('#nav'), progressBar = $('#progressBar');
-  const heroTen = $('#heroTen'), heroGlow = $('#heroGlow');
   let lastY = 0, ticking = false;
   function onScroll() {
     ticking = false;

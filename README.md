@@ -28,19 +28,44 @@ assets/img/           fotografias (Wikimedia Commons — ver credits.json)
 
 ## Interações
 
+### Motor de scroll (inspirado no landonorris.com)
+
+- **Smooth scroll com lerp** — a página é um wrapper `fixed` transladado
+  por `requestAnimationFrame`; o scroll nativo vira alvo e a página
+  "atina" com easing exponencial (estilo Lenis). Só em ponteiro fino,
+  desktop; `prefers-reduced-motion` desliga tudo.
+- **Galeria horizontal dirigida pelo scroll** — a seção "Recortes" tem
+  altura esticada conforme a largura da faixa; rolar a página para o
+  scroll lateral, com as fotos presas no topo (`position: sticky`).
+- **Skew por velocidade** — fotos da galeria e a foto do capítulo
+  inclinam sutilmente conforme a velocidade do scroll.
+- **Marquees aceleradas** — o ticker e a marquise do rodapé somam a
+  velocidade do scroll à velocidade base; aceleram ao rolar.
+- **Títulos fatiados em linhas** — os `h2` viram linhas mascaradas que
+  sobem de dentro de si mesmas ao entrar na viewport (técnica
+  `clip-path`/`overflow` do split-text do Lando).
+- **Reveal de mídia** — fotos da galeria abrem de um crop interno
+  (`clip-path: inset`) + zoom out ao entrar na tela.
+- **Saída do hero** — o conteúdo do hero sobe e esmaece no primeiro
+  scroll, com a foto saindo em velocidade diferente (parallax duplo).
+- **Âncoras** — os links do menu pulam instantâneo no scroll nativo e o
+  lerp desliza até o destino.
+
+### Demais interações
+
 - Preloader com contador e cortina
 - Cursor customizado (ponto + anel com lerp) — só em ponteiro fino
 - Foto do hero em duotone dourado; cor revelada no hover
 - Troca de capítulos por clube (Santos, Barça, PSG, Al-Hilal, Santos)
   com foto, cor e estatísticas animadas por capítulo
-- Galeria "Recortes" rolável (arraste ou scroll horizontal) com
-  tratamento P&B que revela a cor no hover
+- Galeria "Recortes" com tratamento P&B que revela a cor no hover
+  (no mobile: arraste nativo; no desktop: dirigida pelo scroll)
 - Contadores animados + gráfico de barras de gols por capítulo
 - Tema noite / marfim persistente (localStorage)
 - Swatches que copiam HEX e botão que copia os tokens do design system
 - Pôsteres com tilt 3D e brilho especular
 - Confete dourado: clique no "10" do hero ou no "NJ" do rodapé
-- Ticker em marquise, selo giratório, grão de filme, barra de progresso
+- Selo giratório, grão de filme, barra de progresso de leitura
 - Menu mobile em tela cheia com stagger
 
 ## Design system
